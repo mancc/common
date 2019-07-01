@@ -5,6 +5,38 @@ const common = require('..');
 
 const path = require('path');
 
+metatests.test('safe require success', test => {
+  const safeRequire = common.safe(require);
+  const result = safeRequire('./mp');
+  test.strictSame(!!result[0], false);
+  test.strictSame(!!result[1], true);
+  test.end();
+});
+
+metatests.test('safe require fail', test => {
+  const safeRequire = common.safe(require);
+  const result = safeRequire('./name');
+  test.strictSame(!!result[0], true);
+  test.strictSame(!!result[1], false);
+  test.end();
+});
+
+metatests.test('safe parser success', test => {
+  const parser = common.safe(JSON.parse);
+  const result = parser('{"a":5}');
+  test.strictSame(!!result[0], false);
+  test.strictSame(!!result[1], true);
+  test.end();
+});
+
+metatests.test('safe parser fail', test => {
+  const parser = common.safe(JSON.parse);
+  const result = parser('{a:}');
+  test.strictSame(!!result[0], true);
+  test.strictSame(!!result[1], false);
+  test.end();
+});
+
 metatests.test('Check called filename/filepath', test => {
   test.ok(common.callerFilepath().endsWith(path.join('test', 'utilities.js')));
   test.strictSame(common.callerFilename(), 'utilities.js');
@@ -22,3 +54,13 @@ function child(test, depth) {
   );
   test.strictSame(common.callerFilename(depth), 'utilities.js');
 }
+
+metatests.test('Check called filename/filepath custom stack', test => {
+  const limit = Error.stackTraceLimit;
+  Error.stackTraceLimit = 1;
+  const stack = new Error().stack;
+  Error.stackTraceLimit = limit;
+  test.strictSame(common.callerFilepath(0, stack), '');
+  test.strictSame(common.callerFilename(0, stack), '');
+  test.end();
+});
