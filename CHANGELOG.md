@@ -14,6 +14,8 @@ and this project adheres to
 - `common.mkdirpPromise()` function.
 - `Iterator#apply()` and `Iterator#chainApply()` to improve iterator
   interaction with chained calls.
+- `Iterator#chunks()` to allow splitting iterator via custom condition into
+  Arrays of values.
 
 ### Changed
 

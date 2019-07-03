@@ -847,6 +847,16 @@ _Result:_
 '3, -1';
 ```
 
+#### Iterator.prototype.chunk(from)
+
+- `from`: [`<Function>`][function]|[`<number>`][number] split function or chunk
+  size
+  - `val`: `<any>` current iterator value
+
+Split iterator into chunks of size `from` or every time function
+
+`from` returns falsy value.
+
 #### Iterator.prototype.collectTo(CollectionClass)
 
 #### Iterator.prototype.collectWith(obj, collector)
