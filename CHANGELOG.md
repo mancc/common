@@ -20,6 +20,7 @@ and this project adheres to
 - `cryptoPrefetcher()` to throw when `bufSize` is not a multiple of
   `valueSize`.
 - `MemoryWritable` internal buffer size is now limited to 8 MB by default.
+- `cryptoPrefetcher()` to implement Iterator protocol.
 
 ### Fixed
 

@@ -27,3 +27,12 @@ metatests.test('cryptoPrefetcher with invalid arguments', test => {
   );
   test.end();
 });
+
+metatests.testSync('cryptoPrefetcher for of', test => {
+  const valueSize = 8;
+  const cryptoPrefetcher = common.cryptoPrefetcher(valueSize * 5, 8);
+  for (const buf of common.iter(cryptoPrefetcher).take(10)) {
+    test.assert(Buffer.isBuffer(buf));
+    test.strictSame(buf.length, valueSize);
+  }
+});
